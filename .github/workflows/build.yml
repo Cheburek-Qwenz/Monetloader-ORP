@@ -8,15 +8,14 @@ jobs:
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
         with:
-          ndk-version: r25c
+          ndk-version: r21e
       - name: Build
         run: |
           cmake -B build \
             -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=armeabi-v7a \
             -DANDROID_PLATFORM=android-21 \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_CXX_STANDARD=17
+            -DCMAKE_BUILD_TYPE=Release
           cmake --build build -j4
       - name: Upload
         uses: actions/upload-artifact@v4
