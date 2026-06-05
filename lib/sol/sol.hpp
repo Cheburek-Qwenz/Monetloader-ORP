@@ -7142,7 +7142,7 @@ namespace sol { namespace detail {
 		ebco& operator=(ebco&&) = default;
 		ebco(const T& v) noexcept(std::is_nothrow_copy_constructible_v<T>) : m_value(v) {};
 		ebco(T&& v) noexcept(std::is_nothrow_move_constructible_v<T>) : m_value(std::move(v)) {};
-		ebco& operator=(const T& v) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		ebco& operator=(const T& v)  {
 			m_value = v;
 			return *this;
 		}
@@ -7187,7 +7187,7 @@ namespace sol { namespace detail {
 
 		ebco& operator=(const ebco&) = default;
 		ebco& operator=(ebco&&) = default;
-		ebco& operator=(const T& v) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		ebco& operator=(const T& v)  {
 			static_cast<T&>(*this) = v;
 			return *this;
 		}
@@ -19399,7 +19399,7 @@ namespace sol { namespace function_detail {
 	struct upvalue_this_member_variable {
 		typedef std::remove_pointer_t<std::decay_t<Function>> function_type;
 
-		static int real_call(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		static int real_call(lua_State* L)  {
 			// Layout:
 			// idx 1...n: verbatim data of member variable pointer
 			auto memberdata = stack::stack_detail::get_as_upvalues<function_type>(L);
@@ -19415,7 +19415,7 @@ namespace sol { namespace function_detail {
 		}
 
 		template <bool is_yielding, bool no_trampoline>
-		static int call(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		static int call(lua_State* L)  {
 			int nr;
 			if constexpr (no_trampoline) {
 				nr = real_call(L);
@@ -19431,7 +19431,7 @@ namespace sol { namespace function_detail {
 			}
 		}
 
-		int operator()(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		int operator()(lua_State* L)  {
 			return call(L);
 		}
 	};
@@ -19441,7 +19441,7 @@ namespace sol { namespace function_detail {
 		typedef std::remove_pointer_t<std::decay_t<Function>> function_type;
 		typedef lua_bind_traits<function_type> traits_type;
 
-		static int real_call(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		static int real_call(lua_State* L)  {
 			// Layout:
 			// idx 1...n: verbatim data of member variable pointer
 			auto memberdata = stack::stack_detail::get_as_upvalues<function_type>(L);
@@ -19455,7 +19455,7 @@ namespace sol { namespace function_detail {
 		}
 
 		template <bool is_yielding, bool no_trampoline>
-		static int call(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		static int call(lua_State* L)  {
 			int nr;
 			if constexpr (no_trampoline) {
 				nr = real_call(L);
@@ -19471,7 +19471,7 @@ namespace sol { namespace function_detail {
 			}
 		}
 
-		int operator()(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		int operator()(lua_State* L)  {
 			return call(L);
 		}
 	};
@@ -19574,7 +19574,7 @@ namespace sol { namespace function_detail {
 		: var(std::move(v)), member(std::forward<Args>(args)...) {
 		}
 
-		static int call(lua_State* L, member_variable& self) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		static int call(lua_State* L, member_variable& self)  {
 			int nr;
 			{
 				M mem = detail::unwrap(detail::deref(self.member));
@@ -19598,7 +19598,7 @@ namespace sol { namespace function_detail {
 			}
 		}
 
-		int operator()(lua_State* L) noexcept(std::is_nothrow_copy_assignable_v<T>) {
+		int operator()(lua_State* L)  {
 			if constexpr (no_trampoline) {
 				return call(L, *this);
 			}
