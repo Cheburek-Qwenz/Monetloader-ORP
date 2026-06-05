@@ -1,6 +1,8 @@
-# MonetLoader 3.8.0
+# MonetLoader 3.8.0 для Онлайн РП
 A Lua script loader for GTA: San Andreas (and SAMP) on Android.<br>
 Main goal - compatibility with PC MoonLoader (as far as Mobile allows it).
+
+пока что в разработке,ждите
 
 ## Source layout:
 1. `cpp` - Main MonetLoader code.
